@@ -5,9 +5,9 @@ import { ActivityDetailTypes } from '@bitgouel/types'
 
 export const useGetActivityDetail = (
   activity_id: string,
-  options?: UseQueryOptions<AxiosResponse<ActivityDetailTypes>>
+  options?: UseQueryOptions<AxiosResponse>
 ) =>
-  useQuery<AxiosResponse>(
+  useQuery<AxiosResponse<ActivityDetailTypes>>(
     activityQueryKeys.getActivityInformationDetail()(activity_id),
     () => get(activityUrl.activityInformationDetail(activity_id)),
     options
