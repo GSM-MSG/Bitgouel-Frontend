@@ -73,7 +73,7 @@ const ActivityDetailPage = ({ activity_id }: { activity_id: string }) => {
                 <span>{data?.data.credit}점 수여</span>
               </S.NumberBox>
               <S.NumberBox>
-                <S.SubTitleBox>학점</S.SubTitleBox>
+                <S.SubTitleBox>활동 날짜</S.SubTitleBox>
                 <span>
                   {`${data?.data.activityDate.slice(
                     0,

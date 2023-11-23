@@ -9,6 +9,7 @@ import { match } from 'ts-pattern'
 import { useModal } from '@bitgouel/common/src/hooks'
 import { ApproveModal, RejectModal } from '@bitgouel/common'
 import { ApproveStatusEnum } from '@bitgouel/types'
+import { useGetActivityDetail } from '@bitgouel/api'
 
 interface ActivityItemType {
   id: string
@@ -32,8 +33,9 @@ const object: ActivityItemType = {
   approveStatus: 'APPROVED',
 }
 
-const ActivityDetailPage = () => {
+const ActivityDetailPage = ({ activity_id }: { activity_id: string }) => {
   const router = useRouter()
+  const { data } = useGetActivityDetail(activity_id)
   const { openModal } = useModal()
 
   return (
@@ -60,7 +62,7 @@ const ActivityDetailPage = () => {
       <S.DocumentWrapper>
         <S.Document>
           <S.TitleContainer>
-            <S.Title>{object.title}</S.Title>
+            <S.Title>{data?.data.title}</S.Title>
             <S.SubTitle>
               <S.ApproveStatus
                 approveColor={match(object.approveStatus)
@@ -74,37 +76,37 @@ const ActivityDetailPage = () => {
                 <span>{object.credit}점 수여</span>
               </S.NumberBox>
               <S.NumberBox>
-                <S.SubTitleBox>학점</S.SubTitleBox>
+                <S.SubTitleBox>활동 날짜</S.SubTitleBox>
                 <span>
-                  {`${object.activityDate.slice(
+                  {`${data?.data.activityDate.slice(
                     0,
                     4
-                  )}년 ${object.activityDate.slice(
+                  )}년 ${data?.data.activityDate.slice(
                     5,
                     7
-                  )}월 ${object.activityDate.slice(8, 10)}일`}
+                  )}월 ${data?.data.activityDate.slice(8, 10)}일`}
                 </span>
               </S.NumberBox>
               <S.NumberBox>
                 <S.SubTitleBox>최근 수정일</S.SubTitleBox>
                 <span>
-                  {`${object.modifiedAt.slice(
+                  {`${data?.data.modifiedAt.slice(
                     0,
                     4
-                  )}년 ${object.modifiedAt.slice(
+                  )}년 ${data?.data.modifiedAt.slice(
                     5,
                     7
-                  )}월 ${object.modifiedAt.slice(8, 10)}일
-                  ${object.modifiedAt.slice(13, 15)}:${object.modifiedAt.slice(
-                    16,
-                    18
-                  )}
+                  )}월 ${data?.data.modifiedAt.slice(8, 10)}일
+                  ${data?.data.modifiedAt.slice(
+                    13,
+                    15
+                  )}:${data?.data.modifiedAt.slice(16, 18)}
                   `}
                 </span>
               </S.NumberBox>
             </S.SubTitle>
           </S.TitleContainer>
-          <S.MainText>{object.content}</S.MainText>
+          <S.MainText>{data?.data.content}</S.MainText>
           <S.ButtonWrapper>
             <S.ButtonContainer>
               <S.CreateNotApproveButton
@@ -112,8 +114,8 @@ const ActivityDetailPage = () => {
                   openModal(
                     <RejectModal
                       type='활동 추가'
-                      title={object.title}
-                      id={object.id}
+                      title={data?.data.title!}
+                      id={data?.data.id!}
                     />
                   )
                 }
@@ -125,8 +127,8 @@ const ActivityDetailPage = () => {
                   openModal(
                     <ApproveModal
                       type='활동 추가'
-                      title={object.title}
-                      id={object.id}
+                      title={data?.data.title!}
+                      id={data?.data.id!}
                     />
                   )
                 }
