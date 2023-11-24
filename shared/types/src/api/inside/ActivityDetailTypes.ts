@@ -1,3 +1,5 @@
+import { ApproveStatusEnum } from '../common'
+
 export interface ActivityDetailTypes {
   id: string
   title: string
@@ -5,4 +7,5 @@ export interface ActivityDetailTypes {
   credit: number
   activityDate: string
   modifiedAt: string
+  approveStatus: ApproveStatusEnum
 }

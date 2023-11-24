@@ -4,7 +4,8 @@ interface ActivityInformationItem {
   activityId: string
   title: string
   userId: string
-  username: string
+  activityDate: string
+  userName: string
   approveStatus: ApproveStatusEnum
 }
 

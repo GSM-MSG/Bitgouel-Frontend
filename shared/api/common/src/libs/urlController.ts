@@ -36,5 +36,5 @@ export const activityUrl = {
   activityInformationList: (options: ActivityOptionsTypes) =>
     `/activity?page=${options.page}&size=${options.size}&sort=${options.sort}`,
   activityInformationDetail: (activity_id: string) =>
-    `/activity/${activity_id}`,
+    `/activity/${activity_id}/detail`,
 }
