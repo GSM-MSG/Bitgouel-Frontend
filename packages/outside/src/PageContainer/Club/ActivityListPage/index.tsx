@@ -6,6 +6,7 @@ import { Plus } from '@bitgouel/common'
 import { useRouter } from 'next/navigation'
 import { ActivityItem } from '@bitgouel/common/src/components'
 import { ApproveStatusEnum } from '@bitgouel/types'
+import { useGetActivityInformationList } from '@bitgouel/api'
 
 interface ActivityItemType {
   activityId: string
@@ -18,36 +19,11 @@ interface ActivityItemType {
 
 const ActivityListPage = () => {
   const router = useRouter()
-
-  const activityList: ActivityItemType[] = [
-    {
-      activityId: '1',
-      title:
-        '국가는 국민 모두의 생산 및 생활의 기반이 되는 국토의 효율적이고 균형있는 이용·개발과 보전을 위하여 법률이 정하는 바에 의하여 그에 관한 필요한 제한과 의무를 과할 수 있다.',
-      userId: 'sdfsf',
-      activityDate: '2023-12-13',
-      userName: '박주홍',
-      approveStatus: 'APPROVED',
-    },
-    {
-      activityId: '2',
-      title:
-        '국가는 국민 모두의 생산 및 생활의 기반이 되는 국토의 효율적이고 균형있는 이용·개발과 보전을 위하여 법률이 정하는 바에 의하여 그에 관한 필요한 제한과 의무를 과할 수 있다.',
-      userId: 'sdfsf',
-      activityDate: '2023-12-13',
-      userName: '박주홍',
-      approveStatus: 'APPROVED',
-    },
-    {
-      activityId: '3',
-      title:
-        '국가는 국민 모두의 생산 및 생활의 기반이 되는 국토의 효율적이고 균형있는 이용·개발과 보전을 위하여 법률이 정하는 바에 의하여 그에 관한 필요한 제한과 의무를 과할 수 있다.',
-      userId: 'sdfsf',
-      activityDate: '2023-12-13',
-      userName: '박주홍',
-      approveStatus: 'APPROVED',
-    },
-  ]
+  const { data } = useGetActivityInformationList({
+    page: 1,
+    size: 10,
+    sort: '',
+  })
 
   return (
     <div>
@@ -67,7 +43,7 @@ const ActivityListPage = () => {
 
       <S.ActivityWrapper>
         <S.ActivityContainer>
-          {activityList.map((activity) => (
+          {data?.data.activities.content.map((activity) => (
             <ActivityItem item={activity} key={activity.activityId} />
           ))}
         </S.ActivityContainer>
