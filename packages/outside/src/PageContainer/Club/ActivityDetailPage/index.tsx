@@ -11,6 +11,7 @@ import { match } from 'ts-pattern'
 
 const ActivityDetailPage = ({ activity_id }: { activity_id: string }) => {
   const { data } = useGetActivityDetail(activity_id)
+
   const router = useRouter()
 
   return (

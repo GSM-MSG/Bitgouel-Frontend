@@ -12,7 +12,7 @@ export const authQueryKeys = {
 } as const
 
 export const lectureQueryKeys = {
-  postLetureCreate: () => ['lecture', 'create'],
+  postLectureCreate: () => ['lecture', 'create'],
   getLectureList: () => ['lecture', 'list'],
   getLectureDetail: (id: string) => ['lecture', 'detail', id],
   postLectureApplication: (id: string) => ['lecture', 'application', id],
@@ -48,3 +48,7 @@ export const activityQueryKeys = {
   getActivityInformationDetail: () => (activity_id: string) =>
     ['activity', 'detail', activity_id],
 } as const
+
+export const myQueryKeys = {
+  getMy: () => ['my', 'myData'],
+}

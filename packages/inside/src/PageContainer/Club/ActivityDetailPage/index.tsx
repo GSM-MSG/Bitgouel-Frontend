@@ -9,7 +9,8 @@ import { match } from 'ts-pattern'
 import { useModal } from '@bitgouel/common/src/hooks'
 import { ApproveModal, RejectModal } from '@bitgouel/common'
 import { ApproveStatusEnum } from '@bitgouel/types'
-import { useGetActivityDetail } from '@bitgouel/api'
+
+import { useGetActivityDetail, usePatchActivityApprove } from '@bitgouel/api'
 
 interface ActivityItemType {
   id: string
@@ -33,10 +34,13 @@ const object: ActivityItemType = {
   approveStatus: 'APPROVED',
 }
 
-const ActivityDetailPage = ({ activity_id }: { activity_id: string }) => {
+const ActivityDetailPage = ({ activityId }: { activityId: string }) => {
   const router = useRouter()
-  const { data } = useGetActivityDetail(activity_id)
+  const { data } = useGetActivityDetail(activityId)
   const { openModal } = useModal()
+
+  const { mutate: approve } = usePatchActivityApprove(activityId)
+  const { mutate: reject } = usePatchActivityApprove(activityId)
 
   return (
     <div>
@@ -114,8 +118,8 @@ const ActivityDetailPage = ({ activity_id }: { activity_id: string }) => {
                   openModal(
                     <RejectModal
                       type='활동 추가'
-                      title={data?.data.title!}
-                      id={data?.data.id!}
+                      title={object.title}
+                      onAppropriation={reject}
                     />
                   )
                 }
@@ -127,8 +131,8 @@ const ActivityDetailPage = ({ activity_id }: { activity_id: string }) => {
                   openModal(
                     <ApproveModal
                       type='활동 추가'
-                      title={data?.data.title!}
-                      id={data?.data.id!}
+                      title={object.title}
+                      onAppropriation={approve}
                     />
                   )
                 }

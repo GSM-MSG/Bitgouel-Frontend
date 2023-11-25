@@ -2,7 +2,11 @@
 
 import Bg3 from '@bitgouel/common/src/assets/png/mainBg3.png'
 import * as S from './style'
-import { useGetDetailLecture } from '@bitgouel/api'
+import {
+  useDeleteRejectLecture,
+  useGetDetailLecture,
+  usePatchApproveLecture,
+} from '@bitgouel/api'
 import { lectureToKor } from '@bitgouel/common/src/constants'
 import { useModal } from '@bitgouel/common/src/hooks'
 import { ApproveModal, RejectModal } from '@bitgouel/common'
@@ -10,6 +14,8 @@ import { ApproveModal, RejectModal } from '@bitgouel/common'
 const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
   const { data } = useGetDetailLecture(lectureId)
   const { openModal } = useModal()
+  const { mutate: approve } = usePatchApproveLecture(lectureId)
+  const { mutate: reject } = useDeleteRejectLecture(lectureId)
 
   return (
     <div>
@@ -36,7 +42,7 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
             </S.SubTitle>
             <S.Title>{data?.data.name}</S.Title>
             <S.SubMenuContainer>
-              <S.From>{lectureToKor[data.data.lectureType]}</S.From>
+              <S.From>{lectureToKor[data?.data.lectureType]}</S.From>
               <S.MenuNum>
                 <div>
                   <span>신청기간: </span>
@@ -97,11 +103,12 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
             <S.ButtonContainer isApprove={data?.data.approveStatus}>
               <S.CreateNotApproveButton
                 onClick={() =>
+                  data?.data.approveStatus === 'PENDING' &&
                   openModal(
                     <RejectModal
                       type='강의 개설'
                       title={data?.data.name}
-                      id={lectureId}
+                      onAppropriation={approve}
                     />
                   )
                 }
@@ -110,11 +117,12 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
               </S.CreateNotApproveButton>
               <S.CreateApproveButton
                 onClick={() =>
+                  data?.data.approveStatus === 'PENDING' &&
                   openModal(
                     <ApproveModal
                       type='강의 개설'
                       title={data?.data.name}
-                      id={lectureId}
+                      onAppropriation={reject}
                     />
                   )
                 }
