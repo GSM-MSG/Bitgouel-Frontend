@@ -3,11 +3,12 @@
 import * as S from './style'
 import { useState } from 'react'
 import Bg2 from '@bitgouel/common/src/assets/png/mainBg2.png'
-import { Chevron } from '@bitgouel/common'
+import { ApproveModal, Chevron, useModal } from '@bitgouel/common'
 import { SelectCalendarModal, SelectScoreModal } from '@bitgouel/common'
 
 const ActivityCreatePage = () => {
   const MAXLENGTH: number = 1000 as const
+  const { openModal } = useModal()
 
   const [isActivityDate, setIsActivityDate] = useState<boolean>(false)
   const [activityDate, setActivityDate] = useState<Date>(new Date())
@@ -16,6 +17,9 @@ const ActivityCreatePage = () => {
 
   const [isScore, setIsScore] = useState<boolean>(false)
   const [scoreText, setScoreText] = useState<string>('학점 선택')
+
+  const [title, setTitle] = useState<string>('')
+  const [content, setContent] = useState<string>('')
 
   const openSelectModal = (type: string) => {
     if (type === '학점 선택') {
@@ -37,10 +41,17 @@ const ActivityCreatePage = () => {
       </S.SlideBg>
       <S.DocumentInputContainer>
         <S.DocumentInput>
-          <S.InputTitle placeholder='활동 제목(100자 이내)' maxLength={100} />
+          <S.InputTitle
+            placeholder='활동 제목(100자 이내)'
+            maxLength={100}
+            onChange={(e) => {
+              setTitle(e.target.value)
+            }}
+          />
           <S.InputMainText
             maxLength={MAXLENGTH}
             placeholder='활동 내용 작성 (1000자 이내)'
+            onChange={(e) => setContent(e.target.value)}
           />
           <S.ActivitySetting>
             <S.SettingTitle>활동 세부 설정</S.SettingTitle>
