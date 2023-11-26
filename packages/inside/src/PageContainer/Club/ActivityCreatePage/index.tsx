@@ -3,8 +3,9 @@
 import * as S from './style'
 import { useState } from 'react'
 import Bg2 from '@bitgouel/common/src/assets/png/mainBg2.png'
-import { ApproveModal, Chevron, useModal } from '@bitgouel/common'
+import { ApproveModal, Chevron, CreateModal, useModal } from '@bitgouel/common'
 import { SelectCalendarModal, SelectScoreModal } from '@bitgouel/common'
+import { usePostActivityInformation } from '@bitgouel/api'
 
 const ActivityCreatePage = () => {
   const MAXLENGTH: number = 1000 as const
@@ -29,6 +30,28 @@ const ActivityCreatePage = () => {
       setIsActivityDate((prev) => !prev)
       setIsScore(false)
     }
+  }
+
+  const { mutate } = usePostActivityInformation()
+
+  const onCreate = () => {
+    mutate({
+      title: title,
+      content: content,
+      credit: +scoreText.slice(0, 1),
+      activityDate: `${activityDate.getFullYear()}-${(
+        activityDate.getMonth() + 1
+      )
+        .toString()
+        .padStart(2, '0')}-${activityDate
+        .getDate()
+        .toString()
+        .padStart(2, '0')}T${activityDateText
+        .replace(/\s/g, '')
+        .slice(11, 13)}:${activityDateText
+        .replace(/\s/g, '')
+        .slice(14, 16)}:00`,
+    })
   }
 
   return (
@@ -91,7 +114,20 @@ const ActivityCreatePage = () => {
             </S.SettingSelectionContainer>
           </S.ActivitySetting>
           <S.ButtonContainer>
-            <S.CreateButton>활동 신청하기</S.CreateButton>
+            <S.CreateButton
+              onClick={() =>
+                openModal(
+                  <CreateModal
+                    question='활동을 추가하시겠습니까?'
+                    title={title}
+                    onCreate={onCreate}
+                    createText='추가하기'
+                  />
+                )
+              }
+            >
+              활동 신청하기
+            </S.CreateButton>
           </S.ButtonContainer>
         </S.DocumentInput>
       </S.DocumentInputContainer>
