@@ -19,6 +19,7 @@ interface ActivityItemType {
 
 const ActivityListPage = () => {
   const router = useRouter()
+
   const { data } = useGetActivityInformationList({
     page: 1,
     size: 10,
