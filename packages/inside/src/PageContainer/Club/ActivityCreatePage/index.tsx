@@ -46,11 +46,7 @@ const ActivityCreatePage = () => {
         .padStart(2, '0')}-${activityDate
         .getDate()
         .toString()
-        .padStart(2, '0')}T${activityDateText
-        .replace(/\s/g, '')
-        .slice(11, 13)}:${activityDateText
-        .replace(/\s/g, '')
-        .slice(14, 16)}:00`,
+        .padStart(2, '0')}`,
     })
   }
 
