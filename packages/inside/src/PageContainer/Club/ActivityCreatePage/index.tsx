@@ -121,6 +121,12 @@ const ActivityCreatePage = () => {
                   />
                 )
               }
+              isAble={
+                title !== '' &&
+                content !== '' &&
+                activityDateText !== '활동 날짜 선택' &&
+                scoreText !== '학점 선택'
+              }
             >
               활동 신청하기
             </S.CreateButton>
