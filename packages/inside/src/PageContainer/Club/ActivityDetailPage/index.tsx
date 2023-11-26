@@ -34,13 +34,13 @@ const object: ActivityItemType = {
   approveStatus: 'APPROVED',
 }
 
-const ActivityDetailPage = ({ activityId }: { activityId: string }) => {
+const ActivityDetailPage = ({ activity_Id }: { activity_Id: string }) => {
   const router = useRouter()
-  const { data } = useGetActivityDetail(activityId)
+  const { data } = useGetActivityDetail(activity_Id)
   const { openModal } = useModal()
 
-  const { mutate: approve } = usePatchActivityApprove(activityId)
-  const { mutate: reject } = usePatchActivityApprove(activityId)
+  const { mutate: approve } = usePatchActivityApprove(activity_Id)
+  const { mutate: reject } = usePatchActivityApprove(activity_Id)
 
   return (
     <div>
