@@ -10,6 +10,7 @@ const RejectModal = ({
   type,
   title,
   onAppropriation,
+  onReject,
 }: AppropriationModalProps) => {
   const { closeModal } = useModal()
 
@@ -22,7 +23,7 @@ const RejectModal = ({
         </S.RejectLetterContainer>
         <S.RejectButtonWrapper>
           <CancelButton onClick={closeModal}>취소</CancelButton>
-          <S.RejectButton onClick={onAppropriation}>거절하기</S.RejectButton>
+          <S.RejectButton onClick={onReject}>거절하기</S.RejectButton>
         </S.RejectButtonWrapper>
       </S.RejectModalWrapper>
     </Portal>
