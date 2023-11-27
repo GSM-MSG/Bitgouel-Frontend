@@ -108,7 +108,7 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
                     <RejectModal
                       type='강의 개설'
                       title={data?.data.name}
-                      onAppropriation={approve}
+                      onAppropriation={reject}
                     />
                   )
                 }
@@ -122,7 +122,7 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
                     <ApproveModal
                       type='강의 개설'
                       title={data?.data.name}
-                      onAppropriation={reject}
+                      onAppropriation={approve}
                     />
                   )
                 }
