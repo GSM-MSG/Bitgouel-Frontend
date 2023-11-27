@@ -22,9 +22,7 @@ const ActivityDetailPage = ({ activity_id }: { activity_id: string }) => {
 
   const { mutate: approve } = usePatchActivityApprove(activity_id)
 
-  const onReject = () => {
-    const { mutate: reject } = useDeleteRejectActivity(activity_id)
-  }
+  const { mutate: reject } = useDeleteRejectActivity(activity_id)
 
   return (
     <div>
@@ -42,20 +40,7 @@ const ActivityDetailPage = ({ activity_id }: { activity_id: string }) => {
             </S.LectureButton>
             <S.LectureButton>
               <TrashCan />
-              <span
-                onClick={() =>
-                  openModal(
-                    <RejectModal
-                      type='활동을 삭제하시겠습니까?'
-                      title={data?.data.title}
-                      onReject={onReject}
-                      onAppropriation={approve}
-                    />
-                  )
-                }
-              >
-                활동 삭제
-              </span>
+              <span>활동 삭제</span>
             </S.LectureButton>
           </S.TitleButtonContainer>
         </S.BgContainer>
