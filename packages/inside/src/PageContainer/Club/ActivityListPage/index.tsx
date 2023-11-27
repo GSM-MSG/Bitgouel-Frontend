@@ -1,22 +1,14 @@
 'use client'
 
-import * as S from './style'
-import Bg2 from '@bitgouel/common/src/assets/png/mainBg2.png'
+import {
+  useGetActivityInformationList,
+  useGetActivityMyselfList,
+} from '@bitgouel/api'
 import { Plus } from '@bitgouel/common'
-import { useRouter } from 'next/navigation'
+import Bg2 from '@bitgouel/common/src/assets/png/mainBg2.png'
 import { ActivityItem } from '@bitgouel/common/src/components'
-import { ApproveStatusEnum } from '@bitgouel/types'
-import { useGetActivityMyselfList } from '@bitgouel/api'
-import { useGetActivityInformationList } from '@bitgouel/api'
-
-interface ActivityItemType {
-  activityId: string
-  title: string
-  userId: string
-  activityDate: string
-  userName: string
-  approveStatus: ApproveStatusEnum
-}
+import { useRouter } from 'next/navigation'
+import * as S from './style'
 
 const ActivityListPage = () => {
   const router = useRouter()
@@ -26,13 +18,13 @@ const ActivityListPage = () => {
   const { data } = useGetActivityMyselfList({
     page: 1,
     size: 10,
-    sort: '',
+    sort: 'string',
   })
 
-  const { data: teacherData } = useGetActivityInformationList({
+  const { data: adminData } = useGetActivityInformationList({
     page: 1,
     size: 10,
-    sort: '',
+    sort: 'string',
   })
 
   return (
@@ -57,7 +49,7 @@ const ActivityListPage = () => {
             ? data?.data.activities.content.map((activity) => (
                 <ActivityItem item={activity} key={activity.activityId} />
               ))
-            : teacherData?.data.activities.content.map((activity) => (
+            : adminData?.data.activities.content.map((activity) => (
                 <ActivityItem item={activity} key={activity.activityId} />
               ))}
         </S.ActivityContainer>
