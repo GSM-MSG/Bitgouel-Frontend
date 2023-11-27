@@ -24,34 +24,40 @@ const ActivityDetailPage = ({ activity_Id }: { activity_Id: string }) => {
   const { mutate: approve } = usePatchActivityApprove(activity_Id)
   const { mutate: reject } = useDeleteRejectActivity(activity_Id)
 
+  const role = 'student' // 예시 role 지정
+
   return (
     <div>
       <S.SlideBg url={Bg2}>
         <S.BgContainer>
           <S.ActivityTitle>게시글</S.ActivityTitle>
           <S.TitleButtonContainer>
-            <S.LectureButton
-              onClick={() =>
-                router.push('/main/club/student/activity/detail/modify')
-              }
-            >
-              <Pen />
-              <span>활동 수정</span>
-            </S.LectureButton>
-            <S.LectureButton
-              onClick={() =>
-                openModal(
-                  <RejectModal
-                    type='활동을 삭제하시겠습니까?'
-                    title={data?.data.title}
-                    onAppropriation={reject}
-                  />
-                )
-              }
-            >
-              <TrashCan />
-              <span>활동 삭제</span>
-            </S.LectureButton>
+            {role === 'student' && (
+              <>
+                <S.LectureButton
+                  onClick={() =>
+                    router.push('/main/club/student/activity/detail/modify')
+                  }
+                >
+                  <Pen />
+                  <span>활동 수정</span>
+                </S.LectureButton>
+                <S.LectureButton
+                  onClick={() =>
+                    openModal(
+                      <RejectModal
+                        type='활동을 삭제하시겠습니까?'
+                        title={data?.data.title}
+                        onAppropriation={reject}
+                      />
+                    )
+                  }
+                >
+                  <TrashCan />
+                  <span>활동 삭제</span>
+                </S.LectureButton>
+              </>
+            )}
           </S.TitleButtonContainer>
         </S.BgContainer>
       </S.SlideBg>
