@@ -46,7 +46,7 @@ const ActivityModifyPage = ({ activity_Id }: { activity_Id: string }) => {
     mutate({
       title: modifyData.title,
       content: modifyData.content,
-      credit: scoreText,
+      credit: +scoreText.slice(0, 1),
       activityDate: `${activityDate.getFullYear()}-${(
         activityDate.getMonth() + 1
       )
