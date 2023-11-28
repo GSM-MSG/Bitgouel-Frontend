@@ -17,15 +17,18 @@ const ActivityListPage = () => {
 
   const { data } = useGetActivityMyselfList({
     page: 1,
-    size: 10,
-    sort: 'string',
-  })
+    size: 5,
+    sort: '',
+  }) //학생 조회
 
   const { data: adminData } = useGetActivityInformationList({
     page: 1,
-    size: 10,
-    sort: 'string',
-  })
+    size: 4,
+    sort: '',
+  }) // admin 조회
+
+  console.log(data)
+  console.log(adminData)
 
   return (
     <div>
