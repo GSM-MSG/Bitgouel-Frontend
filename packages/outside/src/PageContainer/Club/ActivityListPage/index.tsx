@@ -23,7 +23,6 @@ const ActivityListPage = () => {
   const { data } = useGetActivityInformationList({
     page: 1,
     size: 10,
-    sort: '',
   })
 
   return (
