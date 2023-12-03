@@ -29,7 +29,6 @@ const CreateModal = ({
             onClick={() => {
               onCreate()
               router.push('/main/lecture')
-              closeModal()
             }}
           >
             {createText}
