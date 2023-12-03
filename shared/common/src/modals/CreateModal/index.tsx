@@ -4,6 +4,7 @@ import { CreateModalProps } from '@bitgouel/types'
 import { useModal } from '../../hooks'
 import Portal from '../../portal'
 import * as S from './style'
+import { useRouter } from 'next/navigation'
 
 const CreateModal = ({
   question,
@@ -12,6 +13,8 @@ const CreateModal = ({
   createText,
 }: CreateModalProps) => {
   const { closeModal } = useModal()
+
+  const router = useRouter()
 
   return (
     <Portal onClose={closeModal}>
@@ -22,7 +25,15 @@ const CreateModal = ({
         </S.LetterContainer>
         <S.CreateButtonWrapper>
           <S.CancelButton onClick={closeModal}>취소</S.CancelButton>
-          <S.CreateButton onClick={onCreate}>{createText}</S.CreateButton>
+          <S.CreateButton
+            onClick={() => {
+              onCreate()
+              router.push('/main/lecture')
+              closeModal()
+            }}
+          >
+            {createText}
+          </S.CreateButton>
         </S.CreateButtonWrapper>
       </S.CreateModalWrapper>
     </Portal>
