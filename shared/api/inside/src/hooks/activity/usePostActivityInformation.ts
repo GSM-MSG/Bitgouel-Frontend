@@ -14,7 +14,7 @@ export const usePostActivityInformation = () => {
     activityQueryKeys.postActivityInformation(),
     () => post(activityUrl.activityInformation(), {}),
     {
-      onSuccess: ({ data }) => {
+      onSuccess: () => {
         closeModal()
         router.push('/main/lecture')
         toast.success('개설 신청이 완료되었습니다')
