@@ -25,14 +25,7 @@ const CreateModal = ({
         </S.LetterContainer>
         <S.CreateButtonWrapper>
           <S.CancelButton onClick={closeModal}>취소</S.CancelButton>
-          <S.CreateButton
-            onClick={() => {
-              onCreate()
-              router.push('/main/lecture')
-            }}
-          >
-            {createText}
-          </S.CreateButton>
+          <S.CreateButton onClick={onCreate}>{createText}</S.CreateButton>
         </S.CreateButtonWrapper>
       </S.CreateModalWrapper>
     </Portal>
