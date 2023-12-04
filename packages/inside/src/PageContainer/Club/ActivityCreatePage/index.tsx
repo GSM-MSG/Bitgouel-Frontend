@@ -26,7 +26,7 @@ const ActivityCreatePage = () => {
     if (type === '학점 선택') {
       setIsActivityDate(false)
       setIsScore((prev) => !prev)
-    } else {
+    } else if (type === '활동 날짜 선택') {
       setIsActivityDate((prev) => !prev)
       setIsScore(false)
     }
@@ -84,7 +84,9 @@ const ActivityCreatePage = () => {
                       setText={setActivityDateText}
                     />
                   )}
-                  <S.SettingDateBox onClick={() => openSelectModal('')}>
+                  <S.SettingDateBox
+                    onClick={() => openSelectModal('활동 날짜 선택')}
+                  >
                     <Chevron />
                     <S.SettingButton>{activityDateText}</S.SettingButton>
                   </S.SettingDateBox>

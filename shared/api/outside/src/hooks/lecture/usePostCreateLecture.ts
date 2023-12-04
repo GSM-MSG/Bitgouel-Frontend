@@ -20,6 +20,7 @@ export const usePostCreateLecture = () => {
         toast.success('개설 신청이 완료되었습니다')
         toast.info('관리자의 승인을 기다려주세요')
       },
+
       onError: (error) => {
         console.log(error)
       },
