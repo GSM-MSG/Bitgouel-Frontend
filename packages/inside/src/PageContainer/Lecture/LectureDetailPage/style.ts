@@ -95,16 +95,34 @@ export const ButtonContainer = styled.div`
   justify-content: center;
 `
 
-export const LectureApplyButton = styled.div`
-  background-color: ${({ theme }) => theme.color.main};
-  color: ${({ theme }) => theme.color.white};
+export const LectureApplyButton = styled.div<{
+  applyStatus: 'registered' | 'possible' | 'impossible'
+}>`
+  background-color: ${({ theme, applyStatus }) =>
+    applyStatus === 'registered'
+      ? theme.color.white
+      : applyStatus === 'impossible'
+      ? theme.color.gray['700']
+      : theme.color.main};
+  color: ${({ theme, applyStatus }) =>
+    applyStatus === 'registered'
+      ? theme.color.main
+      : applyStatus === 'impossible'
+      ? theme.color.gray['400']
+      : theme.color.white};
+  border: 0.0625rem solid
+    ${({ theme, applyStatus }) =>
+      applyStatus === 'registered'
+        ? theme.color.main
+        : applyStatus === 'impossible'
+        ? theme.color.gray['700']
+        : theme.color.main};
   width: 10.25rem;
   height: 3.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   ${({ theme }) => theme.typo.text_lg.semibold}
-  border: 0.0625rem solid ${({ theme }) => theme.color.main};
   border-radius: 0.5rem;
   cursor: pointer;
 `

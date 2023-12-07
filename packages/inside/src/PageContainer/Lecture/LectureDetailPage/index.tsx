@@ -1,16 +1,32 @@
 'use client'
-
+import { useEffect, useState } from 'react'
 import Bg3 from '@bitgouel/common/src/assets/png/mainBg3.png'
 import * as S from './style'
 import { useGetDetailLecture, usePostApplicationLecture } from '@bitgouel/api'
 import { lectureToKor } from '@bitgouel/common/src/constants'
 import { LectureApplyModal } from '@/modals'
 import { useModal } from '@bitgouel/common/src/hooks'
+import { useRecoilValue } from 'recoil'
+import { Role } from '@bitgouel/common'
 
 const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
   const { data } = useGetDetailLecture(lectureId)
   const { mutate } = usePostApplicationLecture(lectureId)
   const { openModal } = useModal()
+  const [applyStatus, setApplyStatus] = useState<
+    'registered' | 'impossible' | 'possible'
+  >('possible')
+
+  const role = useRecoilValue(Role)
+
+  useEffect(() => {
+    if (role === 'ROLE_STUDENT' && data?.data.isRegistered)
+      setApplyStatus('registered')
+    else if (!data?.data.isRegistered) setApplyStatus('impossible')
+    else if (data?.data.headCount === data?.data.maxRegisteredUser)
+      setApplyStatus('impossible')
+    else setApplyStatus('possible')
+  }, [])
 
   return (
     <div>
@@ -111,6 +127,7 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
                   />
                 )
               }
+              applyStatus={applyStatus}
             >
               수강 신청하기
             </S.LectureApplyButton>
