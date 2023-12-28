@@ -8,7 +8,6 @@ import {
 import { useRouter } from 'next/navigation'
 import { match } from 'ts-pattern'
 import { lectureStatusToKor } from '../../constants'
-
 import * as S from './style'
 
 const ActivityItem = ({ item }: ActivityItemProps) => {
