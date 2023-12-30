@@ -61,7 +61,7 @@ export const postQueryKeys = {
   deleteBoardDelete: (id: string) => ['post', 'delete', id],
 } as const
 
-export const CertificateQueryKeys = {
+export const certificateQueryKeys = {
   getCertificateListTeacher: (student_id: string) => ['get', 'listTeacher'],
   getCertificateListStudent: () => ['get', 'list'],
   postCertificateCreate: () => ['post', 'create'],
