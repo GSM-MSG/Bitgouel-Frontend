@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { certificateQueryKeys, certificateUrl, patch } from '../../../../common'
 
-export const usePatchCertificate = (student_id: string, id: string) => {
+export const usePatchModifyCertificate = (student_id: string, id: string) => {
   return useMutation<void, AxiosError, CertificateTypes>(
     certificateQueryKeys.patchCertificateModify(student_id, id),
     (modifyValue) =>
