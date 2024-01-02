@@ -1,5 +1,11 @@
-export interface CertificateTypes {
+export interface Certificate {
+  id: string
   name: string
   acquisitionDate: string
-  certificationId?: string
 }
+
+export interface CertificateResponseTypes {
+  certifications: Certificate[]
+}
+
+export interface CertificateRequest extends Omit<Certificate, 'id'> {}
