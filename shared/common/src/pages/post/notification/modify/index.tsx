@@ -63,7 +63,7 @@ const NoticeModifyPage = ({ postId }: { postId: string }) => {
           <S.InputMainText
             value={noticeModifyContent}
             maxLength={MAXLENGTH}
-            placeholder='공지사항 내용 작성 (1000자 이내)'
+            placeholder='본문 입력 (1000자 이내)'
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
               setNoticeModifyContent(e.target.value)
             }
