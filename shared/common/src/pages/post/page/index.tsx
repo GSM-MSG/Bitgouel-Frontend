@@ -1,7 +1,5 @@
 'use client'
 
-import { PostItem } from '../../components'
-import { useRouter } from 'next/navigation'
 import { useGetPostList } from '@bitgouel/api'
 import { RoleEnumTypes } from '@bitgouel/types'
 import { useRouter } from 'next/navigation'
