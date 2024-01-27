@@ -9,9 +9,14 @@ import { useGetInquiryList, useGetMyInquiryList } from '@bitgouel/api'
 
 const InquiryPage = () => {
   const { push } = useRouter()
-  const role = typeof window !== 'undefined' ? localStorage.getItem('Authority') as RoleEnumTypes : null
+  const role =
+    typeof window !== 'undefined'
+      ? (localStorage.getItem('Authority') as RoleEnumTypes)
+      : null
   const { data: inquiryList } = useGetInquiryList()
   const { data: myInquiryList } = useGetMyInquiryList()
+  const { inquiries } = inquiryList?.data || {}
+  const { inquiries: myInquiries } = myInquiryList?.data || {}
 
   return (
     <div>
@@ -31,12 +36,8 @@ const InquiryPage = () => {
       <S.ListWrapper>
         <S.ListContainer>
           {role === 'ROLE_ADMIN'
-            ? inquiryList?.data.inquiries.map((inquiry) => (
-                <InquiryItem item={inquiry} />
-              ))
-            : myInquiryList?.data.inquiries.map((inquiry) => (
-                <InquiryItem item={inquiry} />
-              ))}
+            ? inquiries.map((inquiry) => <InquiryItem item={inquiry} />)
+            : myInquiries.map((inquiry) => <InquiryItem item={inquiry} />)}
         </S.ListContainer>
       </S.ListWrapper>
     </div>

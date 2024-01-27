@@ -6,15 +6,33 @@ import { match } from 'ts-pattern'
 import { Bg5, Pen, TrashCan } from '../../../assets'
 import * as S from './style'
 import { RejectModal } from '../../../modals'
-import { useDeleteInquiryReject, useDeleteMyInquiry, useGetInquiryDetail } from '@bitgouel/api'
+import {
+  useDeleteInquiryReject,
+  useDeleteMyInquiry,
+  useGetInquiryDetail,
+} from '@bitgouel/api'
 import { useModal } from '../../../hooks'
+import { sliceDateTime } from '../../../utils'
 
 const InquiryDetailPage = ({ inquiryId }: { inquiryId: string }) => {
   const { push } = useRouter()
-  const role = typeof window !== 'undefined' ? localStorage.getItem('Authority') as RoleEnumTypes : null
+  const role =
+    typeof window !== 'undefined'
+      ? (localStorage.getItem('Authority') as RoleEnumTypes)
+      : null
   const { data } = useGetInquiryDetail(inquiryId)
+  const {
+    question,
+    questionDetail,
+    questioner,
+    questionDate,
+    answerStatus,
+    createdAt,
+    answer,
+    answeredDate,
+  } = data?.data || {}
   const { mutate: inquiryReject } = useDeleteInquiryReject(inquiryId)
-  const {mutate: myInquiryReject} = useDeleteMyInquiry(inquiryId)
+  const { mutate: myInquiryReject } = useDeleteMyInquiry(inquiryId)
   const { openModal } = useModal()
 
   return (
@@ -35,7 +53,7 @@ const InquiryDetailPage = ({ inquiryId }: { inquiryId: string }) => {
                   <RejectModal
                     type='문의'
                     purpose='삭제'
-                    title={data?.data.question}
+                    title={question}
                     onAppropriation={() => myInquiryReject()}
                   />
                 )
@@ -50,58 +68,38 @@ const InquiryDetailPage = ({ inquiryId }: { inquiryId: string }) => {
       <S.DocumentWrapper>
         <S.Document>
           <S.TitleContainer>
-            <S.Title>{data?.data.question}</S.Title>
+            <S.Title>{question}</S.Title>
             <S.SubTitle>
               <S.ApproveStatus
-                approveColor={match(data?.data.answerStatus)
+                approveColor={match(answerStatus)
                   .with('ANSWERED', () => true)
                   .otherwise(() => false)}
               >
-                {data?.data.answerStatus === 'ANSWERED' ? '답변 완료됨' : '답변 대기 중'}
+                {answerStatus === 'ANSWERED'
+                  ? '답변 완료됨'
+                  : '답변 대기 중'}
               </S.ApproveStatus>
               <S.SemiTitleBox>
                 <S.SubTitleBox>게시일</S.SubTitleBox>
-                <span>{`${data?.data.questionDate.slice(
-                  0,
-                  4
-                )}년 ${data?.data.questionDate.slice(
-                  5,
-                  7
-                )}월 ${data?.data.questionDate.slice(8, 10)}일
-                  ${data?.data.questionDate.slice(
-                    14,
-                    16
-                  )} : ${data?.data.questionDate.slice(17, 19)}
-                  `}</span>
+                <span>{sliceDateTime(createdAt)}</span>
               </S.SemiTitleBox>
               <S.SemiTitleBox>
                 <S.SubTitleBox>게시자</S.SubTitleBox>
-                <span>{data?.data.questioner}</span>
+                <span>{questioner}</span>
               </S.SemiTitleBox>
             </S.SubTitle>
           </S.TitleContainer>
-          <S.MainText>{data?.data.questionDetail}</S.MainText>
+          <S.MainText>{questionDetail}</S.MainText>
           <S.AnswerBox
-            displayType={match(data?.data.answerStatus)
+            displayType={match(answerStatus)
               .with('ANSWERED', () => true)
               .otherwise(() => false)}
           >
             <S.AnswerTitleBox>
               <S.AnswerTitle>문의 답변</S.AnswerTitle>
-              <S.AnswerDate>{`${data?.data.answeredDate?.slice(
-                0,
-                4
-              )}년 ${data?.data.answeredDate?.slice(
-                5,
-                7
-              )}월 ${data?.data.answeredDate?.slice(8, 10)}일
-                  ${data?.data.answeredDate?.slice(
-                    13,
-                    15
-                  )}:${data?.data.answeredDate?.slice(16, 18)}
-                  `}</S.AnswerDate>
+              <S.AnswerDate>{sliceDateTime(answeredDate)}</S.AnswerDate>
             </S.AnswerTitleBox>
-            <S.AnswerText>{data?.data.answer}</S.AnswerText>
+            <S.AnswerText>{answer}</S.AnswerText>
           </S.AnswerBox>
           {role === 'ROLE_ADMIN' && (
             <S.ButtonWrapper>
@@ -111,7 +109,7 @@ const InquiryDetailPage = ({ inquiryId }: { inquiryId: string }) => {
                     <RejectModal
                       type='문의'
                       purpose='삭제'
-                      title={data?.data.question}
+                      title={question}
                       onAppropriation={() => inquiryReject()}
                     />
                   )}

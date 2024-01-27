@@ -12,6 +12,7 @@ const InquiryModifyPage = ({ inquiryId }: { inquiryId: string }) => {
 
   const { openModal } = useModal()
   const { data } = useGetInquiryDetail(inquiryId)
+  const {question, questionDetail} = data?.data || {}
   const { mutate } = usePatchMyInquiry(inquiryId)
 
   useEffect(() => {
@@ -49,12 +50,12 @@ const InquiryModifyPage = ({ inquiryId }: { inquiryId: string }) => {
           <S.ButtonContainer>
             <S.CreateButton
               isAble={
-                data?.data.question !== modifyTitle ||
-                data?.data.questionDetail !== modifyContent
+                question !== modifyTitle ||
+                questionDetail !== modifyContent
               }
               onClick={() =>
-                data?.data.question !== modifyTitle ||
-                data?.data.questionDetail !== modifyContent
+                question !== modifyTitle ||
+                questionDetail !== modifyContent
                   ? openModal(
                       <CreateModal
                         question='문의를 수정하시겠습니까?'
