@@ -1,15 +1,14 @@
 'use client'
 
-import * as S from './style'
-import { Bg1 } from '../../../../assets'
-import Link from 'next/link'
 import { useDeletePost, useGetPostDetail } from '@bitgouel/api'
-import { RejectModal } from '../../../../modals'
+import { RoleEnumTypes } from '@bitgouel/types'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { Bg1 } from '../../../../assets'
 import { useModal } from '../../../../hooks'
-import { useRecoilValue } from 'recoil'
-import { Role } from '../../../../atoms'
 import { sliceDate } from '../../../../utils'
+import { RejectModal } from '../../../../modals'
+import * as S from './style'
 
 const NoticeDetailPage = ({ noticeId }: { noticeId: string }) => {
   const { data } = useGetPostDetail(noticeId)
@@ -17,7 +16,7 @@ const NoticeDetailPage = ({ noticeId }: { noticeId: string }) => {
   const { mutate } = useDeletePost(noticeId, '공지사항')
   const { openModal } = useModal()
   const { push } = useRouter()
-  const role = useRecoilValue(Role)
+  const role = typeof window !== 'undefined' ?  localStorage.getItem("Authority") as RoleEnumTypes : null
 
   return (
     <div>
@@ -65,6 +64,7 @@ const NoticeDetailPage = ({ noticeId }: { noticeId: string }) => {
                         <RejectModal
                           type='공지사항'
                           title={title}
+                          purpose='거절'
                           onAppropriation={() => mutate()}
                         />
                       )

@@ -1,21 +1,18 @@
 'use client'
 
-import { useMutation } from '@tanstack/react-query'
-import { authQueryKeys, authUrl, post, TokenManager } from '../../libs'
-import { AxiosError, AxiosResponse } from 'axios'
-import { useRouter } from 'next/navigation'
 import {
   LoginErrorTypes,
-  LoginResponseTypes,
   LoginPayloadTypes,
+  LoginResponseTypes,
 } from '@bitgouel/types'
-import { useSetRecoilState } from 'recoil'
-import { Role } from '@bitgouel/common/src/atoms'
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { useRouter } from 'next/navigation'
+import { authQueryKeys, authUrl, post, TokenManager } from '../../libs'
 
 export const usePostLogin = () => {
   const tokenManager = new TokenManager()
-  const { push } = useRouter()
-  const setRole = useSetRecoilState(Role)
+  const {push} = useRouter()
 
   return useMutation<
     AxiosResponse<LoginResponseTypes>,
@@ -27,7 +24,7 @@ export const usePostLogin = () => {
     {
       onSuccess: ({ data }) => {
         tokenManager.setTokens(data)
-        setRole(data.authority)
+        localStorage.setItem("Authority", data.authority)
         return push('/')
       }
     }

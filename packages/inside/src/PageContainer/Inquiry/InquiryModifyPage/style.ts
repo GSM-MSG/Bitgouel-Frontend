@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
+import { StaticImageData } from 'next/image'
 
-export const SlideBg = styled.div<{ url: any }>`
+export const SlideBg = styled.div<{ url: StaticImageData }>`
   height: 15rem;
   width: 100%;
   display: flex;
@@ -69,9 +70,11 @@ export const ButtonContainer = styled.div`
   justify-content: center;
 `
 
-export const CreateButton = styled.div`
-  background-color: ${({ theme }) => theme.color.gray['700']};
-  color: ${({ theme }) => theme.color.gray['400']};
+export const CreateButton = styled.div<{ isAble: boolean }>`
+  background-color: ${({ theme, isAble }) =>
+    isAble ? theme.color.main : theme.color.gray['700']};
+  color: ${({ theme, isAble }) =>
+    isAble ? theme.color.white : theme.color.gray['400']};
   ${({ theme }) => theme.typo.text_lg.semibold};
   cursor: pointer;
   bottom: 1.75rem;

@@ -2,16 +2,15 @@
 
 import { LectureApplyModal } from '@/modals'
 import { useGetDetailLecture, usePostApplicationLecture } from '@bitgouel/api'
-import { Bg3, Role, lectureToKor, sliceDateTime, useModal } from '@bitgouel/common'
-import { useRecoilValue } from 'recoil'
+import { Bg3, lectureToKor, sliceDateTime, useModal } from '@bitgouel/common'
 import * as S from './style'
+import { RoleEnumTypes } from '@bitgouel/types'
 
 const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
   const { data } = useGetDetailLecture(lectureId)
   const {
     createAt,
     credit,
-    id,
     name,
     content,
     startDate,
@@ -25,8 +24,11 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
   } = data?.data || {}
   const { mutate } = usePostApplicationLecture(lectureId)
   const { openModal } = useModal()
-  const role = useRecoilValue(Role)
-  console.log(role)
+  const role =
+    typeof window !== 'undefined'
+      ? (localStorage.getItem('Authority') as RoleEnumTypes)
+      : null
+
   return (
     <div>
       <S.SlideBg url={Bg3}>

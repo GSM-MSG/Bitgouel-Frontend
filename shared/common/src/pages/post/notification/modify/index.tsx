@@ -1,7 +1,6 @@
 'use client'
 
 import { useGetPostDetail, usePatchPostModify } from '@bitgouel/api'
-import { PostModifyPayloadTypes } from '@bitgouel/types'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Bg1, Link } from '../../../../assets'
 import * as S from './style'
@@ -10,7 +9,6 @@ const NoticeModifyPage = ({ postId }: { postId: string }) => {
   const MAXLENGTH: number = 1000 as const
   const { mutate } = usePatchPostModify(postId)
   const { data } = useGetPostDetail(postId)
-
   const [noticeModifyTitle, setNoticeModifyTitle] = useState<string>('')
   const [noticeModifyContent, setNoticeModifyContent] = useState<string>('')
   const [noticeModifyLinks, setNoticeModifyLinks] = useState<any[]>([])
