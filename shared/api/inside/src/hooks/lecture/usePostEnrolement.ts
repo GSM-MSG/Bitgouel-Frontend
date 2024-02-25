@@ -6,13 +6,13 @@ import { useModal } from '@bitgouel/common/src/hooks'
 import { toast } from 'react-toastify'
 import { ApiErrorTypes } from '@bitgouel/types'
 
-export const usePostApplicationLecture = (id: string) => {
+export const usePostEnrolment = (id: string) => {
   const { push } = useRouter()
   const { closeModal } = useModal()
 
   return useMutation<void, AxiosError<ApiErrorTypes>>(
-    lectureQueryKeys.postLectureApplication(id),
-    () => post(lectureUrl.lectureApplication(id), {}),
+    lectureQueryKeys.postEnrolment(id),
+    () => post(lectureUrl.lectureEnrolment(id), {}),
     {
       onSuccess: () => {
         closeModal()

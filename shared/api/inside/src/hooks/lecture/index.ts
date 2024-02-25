@@ -1,2 +1,1 @@
-export * from './usePostApplicationLecture'
-export * from './usePostCreateLecture'
+export * from './usePostEnrolement'

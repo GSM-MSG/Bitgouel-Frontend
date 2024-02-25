@@ -41,7 +41,7 @@ export const DocumentInput = styled.div`
 `
 
 export const InputTitle = styled.input`
-  ${({ theme }) => theme.typo.title_md.semibold};
+  ${({ theme }) => theme.typo.title_sm.semibold};
   color: ${({ theme }) => theme.color.black};
   outline: none;
   border: none;

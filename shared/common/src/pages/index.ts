@@ -1,6 +1,7 @@
 export { default as LoginPage } from './login'
 export { default as SignUpPage } from './signUp'
 export { default as HomePage } from './home'
+export {LecturePage, LectureDetailPage} from './lecture'
 export { ClubDetailPage, StudentPage } from './club'
 export {
   PostPage,

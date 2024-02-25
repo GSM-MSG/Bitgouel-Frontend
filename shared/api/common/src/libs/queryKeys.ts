@@ -15,9 +15,7 @@ export const lectureQueryKeys = {
   postLectureCreate: () => ['lecture', 'create'],
   getLectureList: () => ['lecture', 'list'],
   getLectureDetail: (id: string) => ['lecture', 'detail', id],
-  postLectureApplication: (id: string) => ['lecture', 'application', id],
-  patchLectureApprove: (id: string) => ['lecture', 'approve', id],
-  deleteLectureReject: (id: string) => ['lecture', 'reject', id],
+  postEnrolment: (id: string) => ['lecture', 'enrolment', id],
 } as const
 
 export const activityQueryKeys = {

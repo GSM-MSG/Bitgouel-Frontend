@@ -1,11 +1,11 @@
 'use client'
 
-import { lectureToKor, lectureStatusToKor } from '../../constants'
-import * as S from './style'
+import { LectureItemType } from '@bitgouel/types'
 import { useRouter } from 'next/navigation'
-import { LectureItemProps } from '@bitgouel/types'
+import { lectureToKor } from '../../constants'
+import * as S from './style'
 
-const LectureItem = ({ item, role }: LectureItemProps) => {
+const LectureItem = ({ item }: {item: LectureItemType}) => {
   const router = useRouter()
 
   return (
@@ -34,12 +34,6 @@ const LectureItem = ({ item, role }: LectureItemProps) => {
       </S.MainTextContainer>
       <S.SubMenuContainer>
         <S.From>{lectureToKor[item.lectureType]}</S.From>
-        <S.StatusFrom
-          status={item.approveStatus}
-          display={role !== 'ROLE_ADMIN' ? 'none' : ''}
-        >
-          {lectureStatusToKor[item.approveStatus]}
-        </S.StatusFrom>
         <S.MenuNum>
           <span>
             {`${item.startDate.slice(0, 4)}년 ${item.startDate.slice(

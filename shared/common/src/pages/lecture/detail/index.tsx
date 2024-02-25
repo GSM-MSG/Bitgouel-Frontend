@@ -1,14 +1,56 @@
 'use client'
 
 import {
-  useGetDetailLecture
+  TokenManager,
+  useGetDetailLecture,
+  usePostEnrolment,
 } from '@bitgouel/api'
-import { Bg3 } from '@bitgouel/common'
-import { lectureToKor } from '@bitgouel/common/src/constants'
+import { useEffect, useState } from 'react'
+import { Bg3 } from '../../../assets'
+import { lectureToKor } from '../../../constants'
+import { useModal } from '../../../hooks'
+import { AppropriationModal } from '../../../modals'
 import * as S from './style'
 
 const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
   const { data } = useGetDetailLecture(lectureId)
+  const { mutate } = usePostEnrolment(lectureId)
+  const { openModal } = useModal()
+  const [lectureButtonText, setLectureButtonText] =
+    useState<string>('수강 신청 하기')
+  const [isAble, setIsAble] = useState<boolean>(true)
+  const tokenManager = new TokenManager()
+
+  useEffect(() => {
+    if (
+      tokenManager.authority !== 'ROLE_STUDENT' ||
+      data?.data.lectureStatus === 'CLOSED' ||
+      data?.data.headCount === data?.data.maxRegisteredUser
+    ) {
+      setLectureButtonText('수강 신청 불가')
+      setIsAble(false)
+    } else if (data?.data.isRegistered) setLectureButtonText('수강 신청 완료')
+  }, [data])
+
+  const handleModalOpen = () => {
+    if (
+      data?.data.isRegistered ||
+      tokenManager.authority !== 'ROLE_STUDENT' ||
+      data?.data.lectureStatus === 'CLOSED' ||
+      data?.data.headCount === data?.data.maxRegisteredUser
+    )
+      return
+    openModal(
+      <AppropriationModal
+        isApprove={true}
+        question='수강 신청하시겠습니까?'
+        title={data?.data.name}
+        purpose='신청하기'
+        onAppropriation={() => mutate()}
+      />
+    )
+  }
+
   return (
     <div>
       <S.SlideBg url={Bg3}>
@@ -55,10 +97,8 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
                     )}월 ${data?.data.startDate.slice(
                       8,
                       10
-                    )}일 ${data?.data.startDate.slice(11, 16)}`}
-                  </span>
-                  <span>~</span>
-                  <span>
+                    )}일 ${data?.data.startDate.slice(11, 16)}`}{' '}
+                    ~{' '}
                     {`${data?.data.endDate.slice(
                       0,
                       4
@@ -79,16 +119,18 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
                 </div>
                 <div>
                   <span>강의 시작: </span>
-                  <span>{`${data?.data.completeDate.slice(
-                    0,
-                    4
-                  )}년 ${data?.data.completeDate.slice(
-                    5,
-                    7
-                  )}월 ${data?.data.completeDate.slice(
-                    8,
-                    10
-                  )}일 ${data?.data.completeDate.slice(11, 16)}`}</span>
+                  <span>
+                    {`${data?.data.completeDate.slice(
+                      0,
+                      4
+                    )}년 ${data?.data.completeDate.slice(
+                      5,
+                      7
+                    )}월 ${data?.data.completeDate.slice(
+                      8,
+                      10
+                    )}일 ${data?.data.completeDate.slice(11, 16)}`}
+                  </span>
                 </div>
                 <div>
                   <span>학점: </span>
@@ -98,6 +140,15 @@ const LectureDetailPage = ({ lectureId }: { lectureId: string }) => {
             </S.SubMenuContainer>
           </S.TitleContainer>
           <S.MainText>{data?.data.content}</S.MainText>
+          <S.ButtonContainer>
+            <S.LectureButton
+              isRegistered={data?.data.isRegistered}
+              isAble={isAble}
+              onClick={handleModalOpen}
+            >
+              {lectureButtonText}
+            </S.LectureButton>
+          </S.ButtonContainer>
         </S.Document>
       </S.DocumentWrapper>
     </div>

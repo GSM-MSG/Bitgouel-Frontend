@@ -71,11 +71,11 @@ const CohortFilter = () => {
   ])
 
   const [cohort, setCohort] = useState<'2022' | '2023' | '2024'>('2022')
-  const { refetch } = useGetWithDrawUserList()
+  const { refetch } = useGetWithDrawUserList(1)
 
-  useEffect(() => {
-    refetch()
-  }, [cohort])
+//   useEffect(() => {
+//     refetch()
+//   }, [cohort])
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setYears((prev) =>

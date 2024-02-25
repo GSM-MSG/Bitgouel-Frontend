@@ -4,7 +4,7 @@ import { useGetUserList } from '@bitgouel/api'
 import { Bg6, FilterOut, Minus, Plus, UserItem } from '@bitgouel/common'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useEffect, useState } from 'react'
-import { AdminFilter } from '../../../components'
+import { AdminFilter } from '../../../modals'
 import * as S from './style'
 
 const UserListPage = () => {
