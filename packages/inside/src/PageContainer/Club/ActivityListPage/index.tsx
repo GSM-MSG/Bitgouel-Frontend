@@ -5,7 +5,7 @@ import { Bg2 } from '@bitgouel/common'
 import { Plus } from '@bitgouel/common'
 import { useRouter } from 'next/navigation'
 import { ActivityItem } from '@bitgouel/common/src/components'
-import { ApproveStatusEnum } from '@bitgouel/types'
+import { ApproveStatusEnum, StudentIdProps } from '@bitgouel/types'
 
 // 아래 예시인 activityList의 타입인데 어차피 통신으로 값을
 // 갖고 올거니 지워주세요 작업할 때
@@ -18,7 +18,12 @@ interface ActivityItemType {
   approveStatus: ApproveStatusEnum
 }
 
-const ActivityListPage = () => {
+interface StudentProps {
+  studentIdProps: StudentIdProps
+}
+
+const ActivityListPage: React.FC<StudentProps> = ({ studentIdProps }) => {
+  const { studentId, clubId } = studentIdProps
   const { push } = useRouter()
 
   const activityList: ActivityItemType[] = [
@@ -53,7 +58,7 @@ const ActivityListPage = () => {
 
   return (
     <div>
-      <S.SlideBg url={ Bg2 }>
+      <S.SlideBg url={Bg2}>
         <S.BgContainer>
           <S.ClubTitle>(학생이름)의 학생 활동</S.ClubTitle>
           <S.ButtonContainer>
