@@ -81,7 +81,11 @@ const StudentPage: React.FC<StudentProps> = ({ studentIdProps }) => {
           {['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'].includes(
             tokenManager.authority || ''
           ) && (
-            <S.ClubButton onClick={() => push('/main/club/student/activity')}>
+            <S.ClubButton
+              onClick={() =>
+                push(`/main/club/${clubId}/student/${studentId}/activity`)
+              }
+            >
               <PersonOut />
               <span>학생 활동</span>
             </S.ClubButton>
