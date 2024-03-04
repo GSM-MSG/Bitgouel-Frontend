@@ -4,8 +4,8 @@ interface ActivityInformationItem {
   activityId: string
   title: string
   userId: string
-  username: string
-  approveStatus: ApproveStatusEnum
+  activityDate: string
+  userName: string
 }
 
 export interface ActivityInformationTypes {
