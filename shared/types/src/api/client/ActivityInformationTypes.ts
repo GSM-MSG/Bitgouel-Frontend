@@ -5,7 +5,7 @@ interface ActivityInformationItem {
   title: string
   userId: string
   activityDate: string
-  userName: string
+  username: string
 }
 
 export interface ActivityInformationTypes {
