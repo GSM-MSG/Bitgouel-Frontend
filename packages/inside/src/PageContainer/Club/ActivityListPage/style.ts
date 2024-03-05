@@ -26,7 +26,7 @@ export const ClubTitle = styled.span`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
 `
 
 export const ClubButton = styled.div`
