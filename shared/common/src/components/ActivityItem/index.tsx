@@ -9,8 +9,6 @@ import * as S from './style'
 const ActivityItem = ({ item }: ActivityItemProps) => {
   const { push } = useRouter()
 
-  console.log(item)
-
   return (
     <S.ActivityItemWrapper
       onClick={() => push('/main/club/student/activity/detail')}
