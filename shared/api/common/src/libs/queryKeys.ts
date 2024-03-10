@@ -35,8 +35,8 @@ export const activityQueryKeys = {
   getActivityMyselfList: () => ['activity', 'myselfList'],
   getActivityList: (student_id: string) => ['activity', 'list', student_id],
   getActivityInformationList: () => ['activity', 'informationList'],
-  getActivityInformationDetail: () => (activity_id: string) =>
-    ['activity', 'detail', activity_id],
+  getActivityInformationDetail: () => (activityId: string) =>
+    ['activity', 'detail', activityId],
 } as const
 
 export const myQueryKeys = {

@@ -1,4 +1,4 @@
-import { LectureListOptionsTypes, ActivityOptionsTypes } from '@bitgouel/types'
+import { ActivityOptionsTypes, LectureListOptionsTypes } from '@bitgouel/types'
 
 export const authUrl = {
   auth: () => `/auth`,
@@ -34,8 +34,7 @@ export const activityUrl = {
     `/activity/${student_id}?page=${options.page}&size=${options.size}`,
   activityInformationList: (options: ActivityOptionsTypes) =>
     `/activity?page=${options.page}&size=${options.size}`,
-  activityInformationDetail: (activity_id: string) =>
-    `/activity/${activity_id}`,
+  activityInformationDetail: (activityId: string) => `/activity/${activityId}`,
 }
 
 export const userUrl = {
