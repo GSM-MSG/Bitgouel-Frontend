@@ -85,12 +85,29 @@ export const LectureTypeText = atom<string>({
   default: '상호학점인정교육과정',
 })
 
-export const LectureDetails = atom<LectureItemType>({
-  key: 'LectureDetails',
-  default: undefined,
+export const LectureType = atom<'상호학점인정교육과정' | '대학탐방프로그램'>({
+  key: 'LectureType',
+  default: '상호학점인정교육과정',
+})
+
+export const LectureSession = atom<
+  '1학년 2학기' | '2학년 1학기' | '2학년 2학기' | '3학년 1학기'
+>({
+  key: 'LectureSession',
+  default: '1학년 2학기',
 })
 
 export const SchoolFilterText = atom<string>({
   key: 'SchoolFilterText',
+  default: '',
+})
+
+export const EmailErrorText = atom<string>({
+  key: 'EmailErrorText',
+  default: '',
+})
+
+export const PasswordErrorText = atom<string>({
+  key: 'PasswordErrorText',
   default: '',
 })
