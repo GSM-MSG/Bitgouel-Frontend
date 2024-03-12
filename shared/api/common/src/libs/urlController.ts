@@ -24,8 +24,7 @@ export const lectureUrl = {
 
 export const activityUrl = {
   activityInformation: () => `/activity`,
-  activityModifyInformation: (activity_id: string) =>
-    `/activity/${activity_id}`,
+  activityModifyInformation: (activityId: string) => `/activity/${activityId}`,
   activityInformationRemove: (activity_id: string) =>
     `/activity/${activity_id}`,
   activityMyselfList: (options: ActivityOptionsTypes) =>
@@ -34,7 +33,8 @@ export const activityUrl = {
     `/activity/${student_id}?page=${options.page}&size=${options.size}`,
   activityInformationList: (options: ActivityOptionsTypes) =>
     `/activity?page=${options.page}&size=${options.size}`,
-  activityInformationDetail: (activityId: string) => `/activity/${activityId}`,
+  activityInformationDetail: (activityId: string) =>
+    `/activity/${activityId}/detail`,
 }
 
 export const userUrl = {

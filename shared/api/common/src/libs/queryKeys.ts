@@ -22,10 +22,10 @@ export const lectureQueryKeys = {
 
 export const activityQueryKeys = {
   postActivityInformation: () => ['activity', 'information'],
-  patchActivityModifyInformation: (activity_id: string) => [
+  patchActivityModifyInformation: (activityId: string) => [
     'activity',
     'modify',
-    activity_id,
+    activityId,
   ],
   deleteActivityInformationRemove: (activity_id: string) => [
     'activity',
@@ -35,8 +35,11 @@ export const activityQueryKeys = {
   getActivityMyselfList: () => ['activity', 'myselfList'],
   getActivityList: (student_id: string) => ['activity', 'list', student_id],
   getActivityInformationList: () => ['activity', 'informationList'],
-  getActivityInformationDetail: () => (activityId: string) =>
-    ['activity', 'detail', activityId],
+  getActivityInformationDetail: (activityId: string) => [
+    'activity',
+    'detail',
+    activityId,
+  ],
 } as const
 
 export const myQueryKeys = {
