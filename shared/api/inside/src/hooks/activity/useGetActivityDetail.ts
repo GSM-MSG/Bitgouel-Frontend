@@ -8,7 +8,7 @@ export const useGetActivityDetail = (
   options?: UseQueryOptions<AxiosResponse<ActivityDetailTypes>>
 ) =>
   useQuery<AxiosResponse>(
-    activityQueryKeys.getActivityInformationDetail()(activityId),
+    activityQueryKeys.getActivityInformationDetail(activityId),
     () => get(activityUrl.activityInformationDetail(activityId)),
     options
   )
