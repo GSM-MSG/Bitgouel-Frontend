@@ -2,6 +2,7 @@ import {
   CancelIcon,
   LectureSession,
   LectureType,
+  Portal,
   useModal,
 } from '@bitgouel/common'
 import { useRecoilState } from 'recoil'
