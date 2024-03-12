@@ -123,6 +123,19 @@ export const ButtonContainer = styled.div`
   justify-content: center;
 `
 
+export const ModifyButton = styled.div<{ isAble?: boolean }>`
+  background-color: ${({ theme, isAble }) =>
+    isAble ? theme.color.main : theme.color.gray['700']};
+  color: ${({ theme, isAble }) =>
+    isAble ? theme.color.white : theme.color.gray['400']};
+  ${({ theme }) => theme.typo.text_lg};
+  cursor: pointer;
+  bottom: 1.75rem;
+  position: fixed;
+  padding: 0.85rem 2.725rem;
+  border-radius: 0.5rem;
+`
+
 export const CreateButton = styled.div`
   background-color: ${({ theme }) => theme.color.gray['700']};
   color: ${({ theme }) => theme.color.gray['400']};
