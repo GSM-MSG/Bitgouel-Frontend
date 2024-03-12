@@ -43,6 +43,11 @@ const StudentPage: React.FC<StudentProps> = ({ studentIdProps }) => {
   const [certificateDate, setCertificateDate] = useState<Date>(new Date())
   const [certificateDateText, setCertificateDateText] = useState<string>('')
   const [certificateIndex, setCertificateIndex] = useState<number>(-1)
+
+  const [isRole, setIsRole] = useState<boolean>(false)
+
+  const roleArray: string[] = ['ROLE_STUDENT', 'ROLE_TEACHER', 'ROLE_ADMIN']
+
   const { openModal, closeModal } = useModal()
 
   const { data: myData } = useGetStudentDetail(clubId, studentId)
@@ -73,14 +78,18 @@ const StudentPage: React.FC<StudentProps> = ({ studentIdProps }) => {
     window.location.reload()
   }
 
+  useEffect(() => {
+    roleArray.includes(tokenManager.authority)
+      ? setIsRole(true)
+      : setIsRole(false)
+  })
+
   return (
     <div>
       <S.SlideBg url={Bg2}>
         <S.BgContainer>
           <S.ClubTitle>학생 정보</S.ClubTitle>
-          {['ROLE_ADMIN', 'ROLE_TEACHER', 'ROLE_STUDENT'].includes(
-            tokenManager.authority || ''
-          ) && (
+          {isRole && (
             <S.ClubButton
               onClick={() =>
                 push(`/main/club/${clubId}/student/${studentId}/activity`)
