@@ -74,9 +74,9 @@ const ActivityCreatePage: React.FC<StudentProps> = ({ studentIdProps }) => {
         .padStart(2, '0')}`,
     })
 
-    console.log(mutate)
-    // closeModal()
+    closeModal()
     push(`/main/club/${clubId}/student/${studentId}/activity`)
+    toast.success('활동을 추가하였습니다.')
   }
 
   return (
@@ -142,16 +142,23 @@ const ActivityCreatePage: React.FC<StudentProps> = ({ studentIdProps }) => {
           </S.ActivitySetting>
           <S.ButtonContainer>
             <S.CreateButton
-              onClick={() =>
-                openModal(
-                  <CreateModal
-                    question='활동을 추가하시겠습니까?'
-                    title={title}
-                    onCreate={onCreate}
-                    createText='추가하기'
-                  />
-                )
-              }
+              onClick={() => {
+                if (
+                  title !== '' &&
+                  content !== '' &&
+                  activityDateText !== '활동 날짜 선택' &&
+                  scoreText !== '학점 선택'
+                ) {
+                  openModal(
+                    <CreateModal
+                      question='활동을 추가하시겠습니까?'
+                      title={title}
+                      onCreate={onCreate}
+                      createText='추가하기'
+                    />
+                  )
+                }
+              }}
               isAble={
                 title !== '' &&
                 content !== '' &&

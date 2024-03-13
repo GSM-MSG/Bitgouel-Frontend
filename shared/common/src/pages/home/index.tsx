@@ -16,12 +16,11 @@ import {
   Gwangju,
   OfficeGwangju,
 } from '../../assets'
-import {
-  ClubListSlider,
-  CompanyListSlider,
-  SchoolIntro,
-  Sequence,
-} from '../../components'
+
+import Sequence from '../../components/Sequence'
+import SchoolIntro from '../../components/SchoolIntro'
+import ClubListSlider from '../../components/Sliders/ClubListSlider'
+import CompanyListSlider from '../../components/Sliders/CompanyListSlider'
 import { SchoolIntroObjects } from '../../constants'
 import * as S from './style'
 import { useRouter } from 'next/navigation'

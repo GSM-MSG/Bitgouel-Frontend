@@ -6,6 +6,7 @@ import {
   usePostCertificate,
   useGetStudentDetail,
   TokenManager,
+  useGetMy,
 } from '@bitgouel/api'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useEffect, useState } from 'react'
@@ -50,7 +51,12 @@ const StudentPage: React.FC<StudentProps> = ({ studentIdProps }) => {
 
   const { openModal, closeModal } = useModal()
 
-  const { data: myData } = useGetStudentDetail(clubId, studentId)
+  const { data: clubStudent } = useGetStudentDetail(clubId, studentId)
+  const { data: myPageData } = useGetMy()
+
+  console.log(myPageData)
+
+  console.log(clubStudent)
 
   const { mutate } = usePostCertificate()
 
@@ -79,10 +85,8 @@ const StudentPage: React.FC<StudentProps> = ({ studentIdProps }) => {
   }
 
   useEffect(() => {
-    roleArray.includes(tokenManager.authority)
-      ? setIsRole(true)
-      : setIsRole(false)
-  })
+    setIsRole(roleArray.includes(tokenManager.authority || ''))
+  }, [])
 
   return (
     <div>
@@ -90,26 +94,28 @@ const StudentPage: React.FC<StudentProps> = ({ studentIdProps }) => {
         <S.BgContainer>
           <S.ClubTitle>학생 정보</S.ClubTitle>
           {isRole && (
-            <S.ClubButton
-              onClick={() =>
-                push(`/main/club/${clubId}/student/${studentId}/activity`)
-              }
-            >
-              <PersonOut />
-              <span>학생 활동</span>
-            </S.ClubButton>
+            <S.ButtonContainer>
+              <S.ClubButton
+                onClick={() =>
+                  push(`/main/club/${clubId}/student/${studentId}/activity`)
+                }
+              >
+                <PersonOut />
+                <span>학생 활동</span>
+              </S.ClubButton>
+            </S.ButtonContainer>
           )}
         </S.BgContainer>
       </S.SlideBg>
       <S.CertificateWrapper>
         <S.CertificateContainer>
           <S.ProfileBox>
-            <h3>{myData?.data.name}</h3>
+            <h3>{clubStudent?.data.name}</h3>
             <S.ProfileInfoBox>
-              <span>{myData?.data.phoneNumber}</span>
-              <span>{myData?.data.email}</span>
+              <span>{clubStudent?.data.phoneNumber}</span>
+              <span>{clubStudent?.data.email}</span>
               <span>
-                총 학점 <b>{myData?.data.credit}</b>
+                총 학점 <b>{clubStudent?.data.credit}</b>
               </span>
             </S.ProfileInfoBox>
           </S.ProfileBox>

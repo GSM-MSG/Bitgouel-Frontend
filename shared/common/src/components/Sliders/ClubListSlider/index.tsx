@@ -9,7 +9,7 @@ import {
   ClubListContents3,
   ClubListContents4,
   ClubListContents5,
-} from '../..'
+} from '../../ClubListContents'
 import * as S from '../style'
 import { useEffect, useRef } from 'react'
 import { SlideLeftArrow, SlideRightArrow } from '../../../assets'
@@ -30,7 +30,7 @@ const setting = {
     <S.NextArrow>
       <SlideRightArrow />
     </S.NextArrow>
-  )
+  ),
 }
 
 const ClubListSlider = () => {
@@ -46,10 +46,7 @@ const ClubListSlider = () => {
 
   return (
     <S.SliderContainer>
-      <Slider
-        ref={sliderRef}
-        {...setting}
-      >
+      <Slider ref={sliderRef} {...setting}>
         <ClubListContents1 />
         <ClubListContents2 />
         <ClubListContents3 />

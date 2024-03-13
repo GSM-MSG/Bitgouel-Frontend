@@ -1,22 +1,74 @@
 'use client'
 
-import { useGetClubDetail, useGetMyClub } from '@bitgouel/api'
+import {
+  TokenManager,
+  useGetClubDetail,
+  useGetMy,
+  useGetMyClub,
+} from '@bitgouel/api'
 import * as S from './style'
-import { Bg2 } from '../../../assets'
+import { Bg2, PersonOut } from '../../../assets'
 import { useRouter } from 'next/navigation'
 import { roleToKor } from '../../../constants'
+import { useEffect, useState } from 'react'
 
-const ClubDetailPage = ({ clubId }: { clubId?: string }) => {
+const ClubDetailPage = ({
+  clubId,
+  isAdmin,
+}: {
+  clubId?: string
+  isAdmin: boolean
+}) => {
   const { push } = useRouter()
 
   const { data: clubDetail } = useGetClubDetail(clubId || '')
   const { data: myClub } = useGetMyClub()
+  const { data: myData } = useGetMy()
+
+  console.log(myClub)
+  console.log(myClub?.data.students)
+
+  const [userId, setUserId] = useState<string>('')
+
+  const tokenManager = new TokenManager()
+
+  const [isStudent, setIsStudent] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsStudent(tokenManager.authority === 'ROLE_STUDENT')
+
+    if (myClub && myData) {
+      const foundStudent = myClub.data.students.find(
+        (student) => student.userId === myData.data.id
+      )
+      if (foundStudent) {
+        setUserId(foundStudent.id)
+        console.log(userId)
+      }
+    }
+  }, [myClub, myData])
+
+  console.log(userId)
 
   return (
     <div>
       <S.SlideBg url={Bg2}>
         <S.BgContainer>
           <S.Title>취업 동아리</S.Title>
+          {isStudent && (
+            <S.ButtonContainer>
+              <S.ClubButton>
+                <PersonOut />
+                <span
+                  onClick={() =>
+                    push(`/main/club/${myClub?.data.clubId}/student/${userId}`)
+                  }
+                >
+                  내 자격증 및 활동
+                </span>
+              </S.ClubButton>
+            </S.ButtonContainer>
+          )}
         </S.BgContainer>
       </S.SlideBg>
       <S.ClubWrapper>
@@ -59,18 +111,18 @@ const ClubDetailPage = ({ clubId }: { clubId?: string }) => {
                     }
                   >
                     <S.MemberName>{student.name}</S.MemberName>
-                    <S.MemberRole>{roleToKor[student.authority]}</S.MemberRole>
                   </S.ClubMemberBox>
                 ))
               : myClub?.data.students.map((student) => (
                   <S.ClubMemberBox
                     key={student.id}
                     onClick={() =>
-                      push(`/main/club/${myClub?.data.clubId}/student/${student.id}`)
+                      push(
+                        `/main/club/${myClub?.data.clubId}/student/${student.id}`
+                      )
                     }
                   >
                     <S.MemberName>{student.name}</S.MemberName>
-                    <S.MemberRole>{roleToKor[student.authority]}</S.MemberRole>
                   </S.ClubMemberBox>
                 ))}
           </S.ClubMemberListContainer>

@@ -10,7 +10,7 @@ import {
   CompanyListContents3,
   CompanyListContents4,
   CompanyListContents5,
-} from '../..'
+} from '../../CompanyListContents'
 import { SlideLeftArrow, SlideRightArrow } from '../../../assets'
 import * as S from '../style'
 
@@ -30,7 +30,7 @@ const setting = {
     <S.NextArrow>
       <SlideRightArrow />
     </S.NextArrow>
-  )
+  ),
 }
 
 const ClubListSlider = () => {
@@ -43,7 +43,7 @@ const ClubListSlider = () => {
 
     return () => clearInterval(intervalId)
   }, [])
-  
+
   return (
     <S.SliderContainer>
       <Slider ref={sliderRef} {...setting}>

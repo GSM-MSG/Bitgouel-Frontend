@@ -15,6 +15,7 @@ export const SlideBg = styled.div<{ url: StaticImageData }>`
 export const BgContainer = styled.div`
   width: 75rem;
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 1rem;
 `
@@ -26,7 +27,7 @@ export const ClubTitle = styled.span`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 `
 
 export const ClubButton = styled.div`

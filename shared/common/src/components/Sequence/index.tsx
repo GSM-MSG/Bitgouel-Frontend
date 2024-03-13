@@ -1,6 +1,6 @@
 'use client'
 import * as S from './style'
-import { Circle } from '../../assets/index'
+import { Circle } from '../../assets'
 
 const sequenceList = [
   { name: '사업소개', scroll: 722 },
