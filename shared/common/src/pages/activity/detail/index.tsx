@@ -2,7 +2,7 @@
 
 import { Bg2, Pen, TrashCan } from '../../../assets'
 import { useModal } from '../../../hooks'
-import { RejectModal } from '../../../modals'
+import { AppropriationModal } from '../../../modals'
 import { StudentIdProps, ActivityDetailTypes } from '@bitgouel/types'
 import { useRouter } from 'next/navigation'
 import * as S from './style'
@@ -45,10 +45,11 @@ const ActivityDetailPage: React.FC<ActivityItemTypes> = ({
             <S.ActivityButton
               onClick={() =>
                 openModal(
-                  <RejectModal
-                    type='활동'
+                  <AppropriationModal
+                    isApprove={true}
                     title={data?.data.title}
-                    purpose='삭제'
+                    question='활동을 삭제하시겠습니까?'
+                    purpose='삭제하기'
                     onAppropriation={() => {
                       mutate()
                       closeModal()
