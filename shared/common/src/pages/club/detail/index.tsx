@@ -12,13 +12,7 @@ import { useRouter } from 'next/navigation'
 import { roleToKor } from '../../../constants'
 import { useEffect, useState } from 'react'
 
-const ClubDetailPage = ({
-  clubId,
-  isAdmin,
-}: {
-  clubId?: string
-  isAdmin: boolean
-}) => {
+const ClubDetailPage = ({ clubId }: { clubId?: string }) => {
   const { push } = useRouter()
 
   const { data: clubDetail } = useGetClubDetail(clubId || '')
