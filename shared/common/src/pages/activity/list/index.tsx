@@ -1,17 +1,15 @@
 'use client'
 
-import * as S from './style'
 import { Bg2, Plus } from '../../../assets'
-
+import * as S from './style'
 import { useRouter } from 'next/navigation'
-
-import { ApproveStatusEnum, StudentIdProps } from '@bitgouel/types'
 import {
   TokenManager,
   useGetActivityList,
   useGetActivityMyselfList,
   useGetMy,
 } from '@bitgouel/api'
+import { StudentIdProps } from '@bitgouel/types'
 import { useEffect, useState } from 'react'
 import ActivityItem from '../../../components/ActivityItem'
 

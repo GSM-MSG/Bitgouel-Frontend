@@ -1,25 +1,25 @@
 'use client'
 
-import * as S from './style'
 import {
+  useGetActivityDetail,
+  usePatchActivityModifyInformation,
+} from '@bitgouel/api'
+import {
+  AppropriationModal,
   Bg2,
-  CreateModal,
+  Chevron,
   SelectCalendarModal,
+  SelectScoreModal,
   useModal,
 } from '@bitgouel/common'
-import { Chevron } from '@bitgouel/common'
-import { ChangeEvent, useEffect, useState } from 'react'
-import { SelectCalendarTimeModal, SelectScoreModal } from '@bitgouel/common'
-import { useSearchParams } from 'next/navigation'
 import {
   ActivityDetailTypes,
   ActivityPayloadTypes,
   StudentIdProps,
 } from '@bitgouel/types'
-import {
-  useGetActivityDetail,
-  usePatchActivityModifyInformation,
-} from '@bitgouel/api'
+import { useSearchParams } from 'next/navigation'
+import { ChangeEvent, useEffect, useState } from 'react'
+import * as S from './style'
 
 interface StudentProps {
   studentIdProps: StudentIdProps
@@ -181,11 +181,12 @@ const ActivityModifyPage: React.FC<StudentProps> = ({
                 <S.ModifyButton
                   onClick={() =>
                     openModal(
-                      <CreateModal
+                      <AppropriationModal
+                        isApprove={true}
                         question='활동을 수정하시겠습니까?'
                         title={modifyData.title}
-                        onCreate={onModifyData}
-                        createText='수정하기'
+                        onAppropriation={onModifyData}
+                        purpose='수정하기'
                       />
                     )
                   }

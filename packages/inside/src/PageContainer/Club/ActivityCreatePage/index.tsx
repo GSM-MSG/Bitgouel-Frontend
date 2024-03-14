@@ -1,14 +1,19 @@
 'use client'
 
-import * as S from './style'
-import { useState } from 'react'
-import { Bg2 } from '@bitgouel/common'
-import { ApproveModal, Chevron, CreateModal, useModal } from '@bitgouel/common'
 import { usePostActivityInformation } from '@bitgouel/api'
-import { SelectCalendarTimeModal, SelectScoreModal } from '@bitgouel/common'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
+import {
+  AppropriationModal,
+  Bg2,
+  Chevron,
+  SelectCalendarTimeModal,
+  SelectScoreModal,
+  useModal,
+} from '@bitgouel/common'
 import { StudentIdProps } from '@bitgouel/types'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { toast } from 'react-toastify'
+import * as S from './style'
 
 interface StudentProps {
   studentIdProps: StudentIdProps
@@ -150,11 +155,12 @@ const ActivityCreatePage: React.FC<StudentProps> = ({ studentIdProps }) => {
                   scoreText !== '학점 선택'
                 ) {
                   openModal(
-                    <CreateModal
+                    <AppropriationModal
+                      isApprove={true}
                       question='활동을 추가하시겠습니까?'
                       title={title}
-                      onCreate={onCreate}
-                      createText='추가하기'
+                      onAppropriation={onCreate}
+                      purpose='추가하기'
                     />
                   )
                 }

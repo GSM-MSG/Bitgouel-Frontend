@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
-import { authUrl, del, authQueryKeys, TokenManager } from '../../libs'
+import { TokenManager, authQueryKeys, authUrl, del } from '../../libs'
 
 export const useDeleteLogout = () => {
   const tokenManager = new TokenManager()
