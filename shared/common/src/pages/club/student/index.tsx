@@ -6,11 +6,11 @@ import {
   useGetCertificateListTeacher,
   useGetMy,
   useGetStudentDetail,
-  usePostCertificate
+  usePostCertificate,
 } from '@bitgouel/api'
 import { CertificateRequest, StudentIdProps } from '@bitgouel/types'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import {
   AddCertificate,
